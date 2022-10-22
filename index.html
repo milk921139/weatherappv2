@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="src/styles.css" />
+    <title>Weather App</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="weather-app">
+        <form class="search-form" id="search-form">
+          <div class="row">
+            <div class="col-6">
+              <input
+                type="search"
+                placeholder="Type a city.."
+                autofocus="on"
+                autocomplete="off"
+                id="city-input"
+                class="form-control shadow-sm"
+              />
+            </div>
+            <div class="col-3">
+              <input
+                type="submit"
+                value="Search"
+                class="form-control btn btn-primary shadow-sm w-100"
+              />
+            </div>
+            <div class="col-3">
+              <button
+                class="btn btn-success w-100"
+                id="current-location-button"
+              >
+                Current
+              </button>
+            </div>
+          </div>
+        </form>
+        <h1 id="city"></h1>
+        <ul>
+          <li id="date"></li>
+          <li id="description"></li>
+        </ul>
+        <div class="row">
+          <div class="col-6">
+            <div class="clearfix">
+              <div class="float-left">
+                <span class="temperature" id="temperature"></span
+                ><span class="units">°C</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <ul>
+              <li>Humidity: <span id="humidity"></span>%</li>
+              <li>Wind: <span id="wind"></span> km/h</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="src/index.js"></script>
+    <script
+      crossorigin
+      type="text/javascript"
+      src="https://codesandbox.io/static/js/vendors~app~codemirror-editor~monaco-editor~sandbox.5ca13c344.chunk.js"
+    ></script>
+    <script
+      crossorigin
+      type="text/javascript"
+      src="https://codesandbox.io/static/js/common-sandbox.2744d008e.chunk.js"
+    ></script>
+    <script
+      crossorigin
+      type="text/javascript"
+      src="https://codesandbox.io/static/js/vendors~app~sandbox.49a2d4732.chunk.js"
+    ></script>
+    <script
+      crossorigin
+      type="text/javascript"
+      src="https://codesandbox.io/static/js/vendors~sandbox.aefe8771e.chunk.js"
+    ></script>
+    <script
+      crossorigin
+      type="text/javascript"
+      src="https://codesandbox.io/static/js/default~app~embed~sandbox.9afeab9b7.chunk.js"
+    ></script>
+    <script
+      crossorigin
+      type="text/javascript"
+      src="https://codesandbox.io/static/js/sandbox.b0ffaaa1e.js"
+    ></script>
+    <script
+      crossorigin
+      type="text/javascript"
+      src="https://codesandbox.io/static/js/banner.be879265d.js"
+    ></script>
+    <script>
+      window.__SANDBOX_DATA__ = {
+        data: {
+          transpiledModules: {
+            "/package.json:": {
+              query: "",
+              module: {
+                path: "/package.json",
+                code:
+                  '{\n  "name": "api-homework-solution",\n  "version": "1.0.0",\n  "description": "",\n  "main": "index.html",\n  "scripts": {\n    "start": "parcel index.html --open",\n    "build": "parcel build index.html"\n  },\n  "dependencies": {},\n  "devDependencies": {\n    "@babel/core": "7.2.0",\n    "parcel-bundler": "^1.6.1"\n  },\n  "keywords": []\n}'
+              },
+              isEntry: false,
+              isTestFile: false,
+              sourceEqualsCompiled: false,
+              childModules: [],
+              dependencies: [],
+              initiators: ["/src/index.js:"],
+              transpilationDependencies: [],
+              transpilationInitiators: [],
+              asyncDependencies: [],
+              warnings: [],
+              hasMissingDependencies: false,
+              source: {
+                fileName: "/package.json",
+                compiledCode:
+                  '\n      module.exports = JSON.parse("{\\n  \\"name\\": \\"api-homework-solution\\",\\n  \\"version\\": \\"1.0.0\\",\\n  \\"description\\": \\"\\",\\n  \\"main\\": \\"index.html\\",\\n  \\"scripts\\": {\\n    \\"start\\": \\"parcel index.html --open\\",\\n    \\"build\\": \\"parcel build index.html\\"\\n  },\\n  \\"dependencies\\": {},\\n  \\"devDependencies\\": {\\n    \\"@babel/core\\": \\"7.2.0\\",\\n    \\"parcel-bundler\\": \\"^1.6.1\\"\\n  },\\n  \\"keywords\\": []\\n}")\n    ',
+                sourceEqualsCompiled: false
+              }
+            },
+            "/src/styles.css:": {
+              query: "",
+              module: {
+                path: "/src/styles.css",
+                code:
+                  "body {\n  font-family: arial, sans-serif;\n}\n\nh1 {\n  color: #7c7c7c;\n  font-size: 24px;\n  font-weight: 100;\n  line-height: 28px;\n  margin: 0;\n}\n\nul {\n  margin: 0 0 10px;\n  padding: 0;\n}\n\nli {\n  color: #7c7c7c;\n  font-size: 16px;\n  font-weight: 100;\n  height: 19px;\n  line-height: 1;\n  list-style: none;\n}\n\n.weather-app {\n  border: 1px solid #dadde1;\n  padding: 15px;\n  margin: 20px auto;\n  border-radius: 10px;\n  max-width: 600px;\n}\n\n.weather-icon {\n  height: 64px;\n  width: 64px;\n  margin-right: 10px;\n}\n\n.temperature {\n  color: rgb(33, 33, 33);\n  font-size: 64px;\n  font-weight: 400;\n  line-height: 1;\n}\n\n.units {\n  position: relative;\n  top: -34px;\n}\n\n.search-form {\n  margin-bottom: 20px;\n}\n"
+              },
+              isEntry: true,
+              isTestFile: false,
+              sourceEqualsCompiled: false,
+              childModules: [],
+              dependencies: [],
+              initiators: ["/index.html:"],
+              transpilationDependencies: [],
+              transpilationInitiators: [],
+              asyncDependencies: [],
+              warnings: [],
+              hasMissingDependencies: false,
+              source: {
+                fileName: "/src/styles.css",
+                compiledCode:
+                  "\nfunction createStyleNode(id, content) {\n  var styleNode =\n    document.getElementById(id) || document.createElement('style');\n\n  styleNode.setAttribute('id', id);\n  styleNode.type = 'text/css';\n  if (styleNode.styleSheet) {\n    styleNode.styleSheet.cssText = content;\n  } else {\n    styleNode.innerHTML = '';\n    styleNode.appendChild(document.createTextNode(content));\n  }\n  document.head.appendChild(styleNode);\n}\n\ncreateStyleNode(\n  \"/src/styles.css:-css\",\n  \"body {\\n  font-family: arial, sans-serif;\\n}\\n\\nh1 {\\n  color: #7c7c7c;\\n  font-size: 24px;\\n  font-weight: 100;\\n  line-height: 28px;\\n  margin: 0;\\n}\\n\\nul {\\n  margin: 0 0 10px;\\n  padding: 0;\\n}\\n\\nli {\\n  color: #7c7c7c;\\n  font-size: 16px;\\n  font-weight: 100;\\n  height: 19px;\\n  line-height: 1;\\n  list-style: none;\\n}\\n\\n.weather-app {\\n  border: 1px solid #dadde1;\\n  padding: 15px;\\n  margin: 20px auto;\\n  border-radius: 10px;\\n  max-width: 600px;\\n}\\n\\n.weather-icon {\\n  height: 64px;\\n  width: 64px;\\n  margin-right: 10px;\\n}\\n\\n.temperature {\\n  color: rgb(33, 33, 33);\\n  font-size: 64px;\\n  font-weight: 400;\\n  line-height: 1;\\n}\\n\\n.units {\\n  position: relative;\\n  top: -34px;\\n}\\n\\n.search-form {\\n  margin-bottom: 20px;\\n}\\n\"\n);\n\n\n",
+                sourceEqualsCompiled: false
+              }
+            },
+            "/src/index.js:": {
+              query: "",
+              module: {
+                path: "/src/index.js",
+                code:
+                  'function formatDate(date) {\n  let hours = date.getHours();\n  if (hours \u003c 10) {\n    hours = `0${hours}`;\n  }\n  let minutes = date.getMinutes();\n  if (minutes \u003c 10) {\n    minutes = `0${minutes}`;\n  }\n\n  let dayIndex = date.getDay();\n  let days = [\n    "Sunday",\n    "Monday",\n    "Tuesday",\n    "Wednesday",\n    "Thursday",\n    "Friday",\n    "Saturday"\n  ];\n  let day = days[dayIndex];\n\n  return `${day} ${hours}:${minutes}`;\n}\n\nfunction displayWeatherCondition(response) {\n  document.querySelector("#city").innerHTML = response.data.name;\n  document.querySelector("#temperature").innerHTML = Math.round(\n    response.data.main.temp\n  );\n\n  document.querySelector("#humidity").innerHTML = response.data.main.humidity;\n  document.querySelector("#wind").innerHTML = Math.round(\n    response.data.wind.speed\n  );\n  document.querySelector("#description").innerHTML =\n    response.data.weather[0].main;\n}\n\nfunction searchCity(city) {\n  let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";\n  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;\n  axios.get(apiUrl).then(displayWeatherCondition);\n}\n\nfunction handleSubmit(event) {\n  event.preventDefault();\n  let city = document.querySelector("#city-input").value;\n  searchCity(city);\n}\n\nfunction searchLocation(position) {\n  let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";\n  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${\n    position.coords.latitude\n  }&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`;\n\n  axios.get(apiUrl).then(displayWeatherCondition);\n}\n\nfunction getCurrentLocation(event) {\n  event.preventDefault();\n  navigator.geolocation.getCurrentPosition(searchLocation);\n}\n\nfunction convertToFahrenheit(event) {\n  event.preventDefault();\n  let temperatureElement = document.querySelector("#temperature");\n  temperatureElement.innerHTML = 66;\n}\n\nfunction convertToCelsius(event) {\n  event.preventDefault();\n  let temperatureElement = document.querySelector("#temperature");\n  temperatureElement.innerHTML = 19;\n}\n\nlet dateElement = document.querySelector("#date");\nlet currentTime = new Date();\ndateElement.innerHTML = formatDate(currentTime);\n\nlet searchForm = document.querySelector("#search-form");\nsearchForm.addEventListener("submit", handleSubmit);\n\nlet currentLocationButton = document.querySelector("#current-location-button");\ncurrentLocationButton.addEventListener("click", getCurrentLocation);\n\nsearchCity("New York");\n'
+              },
+              isEntry: true,
+              isTestFile: false,
+              sourceEqualsCompiled: false,
+              childModules: [],
+              dependencies: [
+                "/package.json:",
+                "/node_modules/@babel/runtime/package.json:",
+                "/node_modules/@babel/runtime/helpers/interopRequireDefault.js:",
+                "/node_modules/@babel/runtime/helpers/interopRequireWildcard.js:"
+              ],
+              initiators: ["/index.html:"],
+              transpilationDependencies: [],
+              transpilationInitiators: [],
+              asyncDependencies: [],
+              warnings: [],
+              hasMissingDependencies: false,
+              source: {
+                fileName: "/src/index.js",
+                compiledCode:
+                  '"use strict";\n\nfunction formatDate(date) {\n  var hours = date.getHours();\n\n  if (hours \u003c 10) {\n    hours = "0".concat(hours);\n  }\n\n  var minutes = date.getMinutes();\n\n  if (minutes \u003c 10) {\n    minutes = "0".concat(minutes);\n  }\n\n  var dayIndex = date.getDay();\n  var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];\n  var day = days[dayIndex];\n  return "".concat(day, " ").concat(hours, ":").concat(minutes);\n}\n\nfunction displayWeatherCondition(response) {\n  document.querySelector("#city").innerHTML = response.data.name;\n  document.querySelector("#temperature").innerHTML = Math.round(response.data.main.temp);\n  document.querySelector("#humidity").innerHTML = response.data.main.humidity;\n  document.querySelector("#wind").innerHTML = Math.round(response.data.wind.speed);\n  document.querySelector("#description").innerHTML = response.data.weather[0].main;\n}\n\nfunction searchCity(city) {\n  var apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";\n  var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=".concat(city, "&appid=").concat(apiKey, "&units=metric");\n  axios.get(apiUrl).then(displayWeatherCondition);\n}\n\nfunction handleSubmit(event) {\n  event.preventDefault();\n  var city = document.querySelector("#city-input").value;\n  searchCity(city);\n}\n\nfunction searchLocation(position) {\n  var apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";\n  var apiUrl = "https://api.openweathermap.org/data/2.5/weather?lat=".concat(position.coords.latitude, "&lon=").concat(position.coords.longitude, "&appid=").concat(apiKey, "&units=metric");\n  axios.get(apiUrl).then(displayWeatherCondition);\n}\n\nfunction getCurrentLocation(event) {\n  event.preventDefault();\n  navigator.geolocation.getCurrentPosition(searchLocation);\n}\n\nfunction convertToFahrenheit(event) {\n  event.preventDefault();\n  var temperatureElement = document.querySelector("#temperature");\n  temperatureElement.innerHTML = 66;\n}\n\nfunction convertToCelsius(event) {\n  event.preventDefault();\n  var temperatureElement = document.querySelector("#temperature");\n  temperatureElement.innerHTML = 19;\n}\n\nvar dateElement = document.querySelector("#date");\nvar currentTime = new Date();\ndateElement.innerHTML = formatDate(currentTime);\nvar searchForm = document.querySelector("#search-form");\nsearchForm.addEventListener("submit", handleSubmit);\nvar currentLocationButton = document.querySelector("#current-location-button");\ncurrentLocationButton.addEventListener("click", getCurrentLocation);\nsearchCity("New York");\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9zcmMvaW5kZXguanMiXSwibmFtZXMiOlsiZm9ybWF0RGF0ZSIsImRhdGUiLCJob3VycyIsImdldEhvdXJzIiwibWludXRlcyIsImdldE1pbnV0ZXMiLCJkYXlJbmRleCIsImdldERheSIsImRheXMiLCJkYXkiLCJkaXNwbGF5V2VhdGhlckNvbmRpdGlvbiIsInJlc3BvbnNlIiwiZG9jdW1lbnQiLCJxdWVyeVNlbGVjdG9yIiwiaW5uZXJIVE1MIiwiZGF0YSIsIm5hbWUiLCJNYXRoIiwicm91bmQiLCJtYWluIiwidGVtcCIsImh1bWlkaXR5Iiwid2luZCIsInNwZWVkIiwid2VhdGhlciIsInNlYXJjaENpdHkiLCJjaXR5IiwiYXBpS2V5IiwiYXBpVXJsIiwiYXhpb3MiLCJnZXQiLCJ0aGVuIiwiaGFuZGxlU3VibWl0IiwiZXZlbnQiLCJwcmV2ZW50RGVmYXVsdCIsInZhbHVlIiwic2VhcmNoTG9jYXRpb24iLCJwb3NpdGlvbiIsImNvb3JkcyIsImxhdGl0dWRlIiwibG9uZ2l0dWRlIiwiZ2V0Q3VycmVudExvY2F0aW9uIiwibmF2aWdhdG9yIiwiZ2VvbG9jYXRpb24iLCJnZXRDdXJyZW50UG9zaXRpb24iLCJjb252ZXJ0VG9GYWhyZW5oZWl0IiwidGVtcGVyYXR1cmVFbGVtZW50IiwiY29udmVydFRvQ2Vsc2l1cyIsImRhdGVFbGVtZW50IiwiY3VycmVudFRpbWUiLCJEYXRlIiwic2VhcmNoRm9ybSIsImFkZEV2ZW50TGlzdGVuZXIiLCJjdXJyZW50TG9jYXRpb25CdXR0b24iXSwibWFwcGluZ3MiOiI7O0FBQUEsU0FBU0EsVUFBVCxDQUFvQkMsSUFBcEIsRUFBMEI7QUFDeEIsTUFBSUMsS0FBSyxHQUFHRCxJQUFJLENBQUNFLFFBQUwsRUFBWjs7QUFDQSxNQUFJRCxLQUFLLEdBQUcsRUFBWixFQUFnQjtBQUNkQSxJQUFBQSxLQUFLLGNBQU9BLEtBQVAsQ0FBTDtBQUNEOztBQUNELE1BQUlFLE9BQU8sR0FBR0gsSUFBSSxDQUFDSSxVQUFMLEVBQWQ7O0FBQ0EsTUFBSUQsT0FBTyxHQUFHLEVBQWQsRUFBa0I7QUFDaEJBLElBQUFBLE9BQU8sY0FBT0EsT0FBUCxDQUFQO0FBQ0Q7O0FBRUQsTUFBSUUsUUFBUSxHQUFHTCxJQUFJLENBQUNNLE1BQUwsRUFBZjtBQUNBLE1BQUlDLElBQUksR0FBRyxDQUNULFFBRFMsRUFFVCxRQUZTLEVBR1QsU0FIUyxFQUlULFdBSlMsRUFLVCxVQUxTLEVBTVQsUUFOUyxFQU9ULFVBUFMsQ0FBWDtBQVNBLE1BQUlDLEdBQUcsR0FBR0QsSUFBSSxDQUFDRixRQUFELENBQWQ7QUFFQSxtQkFBVUcsR0FBVixjQUFpQlAsS0FBakIsY0FBMEJFLE9BQTFCO0FBQ0Q7O0FBRUQsU0FBU00sdUJBQVQsQ0FBaUNDLFFBQWpDLEVBQTJDO0FBQ3pDQyxFQUFBQSxRQUFRLENBQUNDLGFBQVQsQ0FBdUIsT0FBdkIsRUFBZ0NDLFNBQWhDLEdBQTRDSCxRQUFRLENBQUNJLElBQVQsQ0FBY0MsSUFBMUQ7QUFDQUosRUFBQUEsUUFBUSxDQUFDQyxhQUFULENBQXVCLGNBQXZCLEVBQXVDQyxTQUF2QyxHQUFtREcsSUFBSSxDQUFDQyxLQUFMLENBQ2pEUCxRQUFRLENBQUNJLElBQVQsQ0FBY0ksSUFBZCxDQUFtQkMsSUFEOEIsQ0FBbkQ7QUFJQVIsRUFBQUEsUUFBUSxDQUFDQyxhQUFULENBQXVCLFdBQXZCLEVBQW9DQyxTQUFwQyxHQUFnREgsUUFBUSxDQUFDSSxJQUFULENBQWNJLElBQWQsQ0FBbUJFLFFBQW5FO0FBQ0FULEVBQUFBLFFBQVEsQ0FBQ0MsYUFBVCxDQUF1QixPQUF2QixFQUFnQ0MsU0FBaEMsR0FBNENHLElBQUksQ0FBQ0MsS0FBTCxDQUMxQ1AsUUFBUSxDQUFDSSxJQUFULENBQWNPLElBQWQsQ0FBbUJDLEtBRHVCLENBQTVDO0FBR0FYLEVBQUFBLFFBQVEsQ0FBQ0MsYUFBVCxDQUF1QixjQUF2QixFQUF1Q0MsU0FBdkMsR0FDRUgsUUFBUSxDQUFDSSxJQUFULENBQWNTLE9BQWQsQ0FBc0IsQ0FBdEIsRUFBeUJMLElBRDNCO0FBRUQ7O0FBRUQsU0FBU00sVUFBVCxDQUFvQkMsSUFBcEIsRUFBMEI7QUFDeEIsTUFBSUMsTUFBTSxHQUFHLGtDQUFiO0FBQ0EsTUFBSUMsTUFBTSwrREFBd0RGLElBQXhELG9CQUFzRUMsTUFBdEUsa0JBQVY7QUFDQUUsRUFBQUEsS0FBSyxDQUFDQyxHQUFOLENBQVVGLE1BQVYsRUFBa0JHLElBQWxCLENBQXVCckIsdUJBQXZCO0FBQ0Q7O0FBRUQsU0FBU3NCLFlBQVQsQ0FBc0JDLEtBQXRCLEVBQTZCO0FBQzNCQSxFQUFBQSxLQUFLLENBQUNDLGNBQU47QUFDQSxNQUFJUixJQUFJLEdBQUdkLFFBQVEsQ0FBQ0MsYUFBVCxDQUF1QixhQUF2QixFQUFzQ3NCLEtBQWpEO0FBQ0FWLEVBQUFBLFVBQVUsQ0FBQ0MsSUFBRCxDQUFWO0FBQ0Q7O0FBRUQsU0FBU1UsY0FBVCxDQUF3QkMsUUFBeEIsRUFBa0M7QUFDaEMsTUFBSVYsTUFBTSxHQUFHLGtDQUFiO0FBQ0EsTUFBSUMsTUFBTSxpRUFDUlMsUUFBUSxDQUFDQyxNQUFULENBQWdCQyxRQURSLGtCQUVGRixRQUFRLENBQUNDLE1BQVQsQ0FBZ0JFLFNBRmQsb0JBRWlDYixNQUZqQyxrQkFBVjtBQUlBRSxFQUFBQSxLQUFLLENBQUNDLEdBQU4sQ0FBVUYsTUFBVixFQUFrQkcsSUFBbEIsQ0FBdUJyQix1QkFBdkI7QUFDRDs7QUFFRCxTQUFTK0Isa0JBQVQsQ0FBNEJSLEtBQTVCLEVBQW1DO0FBQ2pDQSxFQUFBQSxLQUFLLENBQUNDLGNBQU47QUFDQVEsRUFBQUEsU0FBUyxDQUFDQyxXQUFWLENBQXNCQyxrQkFBdEIsQ0FBeUNSLGNBQXpDO0FBQ0Q7O0FBRUQsU0FBU1MsbUJBQVQsQ0FBNkJaLEtBQTdCLEVBQW9DO0FBQ2xDQSxFQUFBQSxLQUFLLENBQUNDLGNBQU47QUFDQSxNQUFJWSxrQkFBa0IsR0FBR2xDLFFBQVEsQ0FBQ0MsYUFBVCxDQUF1QixjQUF2QixDQUF6QjtBQUNBaUMsRUFBQUEsa0JBQWtCLENBQUNoQyxTQUFuQixHQUErQixFQUEvQjtBQUNEOztBQUVELFNBQVNpQyxnQkFBVCxDQUEwQmQsS0FBMUIsRUFBaUM7QUFDL0JBLEVBQUFBLEtBQUssQ0FBQ0MsY0FBTjtBQUNBLE1BQUlZLGtCQUFrQixHQUFHbEMsUUFBUSxDQUFDQyxhQUFULENBQXVCLGNBQXZCLENBQXpCO0FBQ0FpQyxFQUFBQSxrQkFBa0IsQ0FBQ2hDLFNBQW5CLEdBQStCLEVBQS9CO0FBQ0Q7O0FBRUQsSUFBSWtDLFdBQVcsR0FBR3BDLFFBQVEsQ0FBQ0MsYUFBVCxDQUF1QixPQUF2QixDQUFsQjtBQUNBLElBQUlvQyxXQUFXLEdBQUcsSUFBSUMsSUFBSixFQUFsQjtBQUNBRixXQUFXLENBQUNsQyxTQUFaLEdBQXdCZCxVQUFVLENBQUNpRCxXQUFELENBQWxDO0FBRUEsSUFBSUUsVUFBVSxHQUFHdkMsUUFBUSxDQUFDQyxhQUFULENBQXVCLGNBQXZCLENBQWpCO0FBQ0FzQyxVQUFVLENBQUNDLGdCQUFYLENBQTRCLFFBQTVCLEVBQXNDcEIsWUFBdEM7QUFFQSxJQUFJcUIscUJBQXFCLEdBQUd6QyxRQUFRLENBQUNDLGFBQVQsQ0FBdUIsMEJBQXZCLENBQTVCO0FBQ0F3QyxxQkFBcUIsQ0FBQ0QsZ0JBQXRCLENBQXVDLE9BQXZDLEVBQWdEWCxrQkFBaEQ7QUFFQWhCLFVBQVUsQ0FBQyxVQUFELENBQVYiLCJzb3VyY2VzQ29udGVudCI6WyJmdW5jdGlvbiBmb3JtYXREYXRlKGRhdGUpIHtcbiAgbGV0IGhvdXJzID0gZGF0ZS5nZXRIb3VycygpO1xuICBpZiAoaG91cnMgPCAxMCkge1xuICAgIGhvdXJzID0gYDAke2hvdXJzfWA7XG4gIH1cbiAgbGV0IG1pbnV0ZXMgPSBkYXRlLmdldE1pbnV0ZXMoKTtcbiAgaWYgKG1pbnV0ZXMgPCAxMCkge1xuICAgIG1pbnV0ZXMgPSBgMCR7bWludXRlc31gO1xuICB9XG5cbiAgbGV0IGRheUluZGV4ID0gZGF0ZS5nZXREYXkoKTtcbiAgbGV0IGRheXMgPSBbXG4gICAgXCJTdW5kYXlcIixcbiAgICBcIk1vbmRheVwiLFxuICAgIFwiVHVlc2RheVwiLFxuICAgIFwiV2VkbmVzZGF5XCIsXG4gICAgXCJUaHVyc2RheVwiLFxuICAgIFwiRnJpZGF5XCIsXG4gICAgXCJTYXR1cmRheVwiXG4gIF07XG4gIGxldCBkYXkgPSBkYXlzW2RheUluZGV4XTtcblxuICByZXR1cm4gYCR7ZGF5fSAke2hvdXJzfToke21pbnV0ZXN9YDtcbn1cblxuZnVuY3Rpb24gZGlzcGxheVdlYXRoZXJDb25kaXRpb24ocmVzcG9uc2UpIHtcbiAgZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIiNjaXR5XCIpLmlubmVySFRNTCA9IHJlc3BvbnNlLmRhdGEubmFtZTtcbiAgZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIiN0ZW1wZXJhdHVyZVwiKS5pbm5lckhUTUwgPSBNYXRoLnJvdW5kKFxuICAgIHJlc3BvbnNlLmRhdGEubWFpbi50ZW1wXG4gICk7XG5cbiAgZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIiNodW1pZGl0eVwiKS5pbm5lckhUTUwgPSByZXNwb25zZS5kYXRhLm1haW4uaHVtaWRpdHk7XG4gIGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIjd2luZFwiKS5pbm5lckhUTUwgPSBNYXRoLnJvdW5kKFxuICAgIHJlc3BvbnNlLmRhdGEud2luZC5zcGVlZFxuICApO1xuICBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiI2Rlc2NyaXB0aW9uXCIpLmlubmVySFRNTCA9XG4gICAgcmVzcG9uc2UuZGF0YS53ZWF0aGVyWzBdLm1haW47XG59XG5cbmZ1bmN0aW9uIHNlYXJjaENpdHkoY2l0eSkge1xuICBsZXQgYXBpS2V5ID0gXCI1ZjQ3MmI3YWNiYTMzM2NkOGEwMzVlYTg1YTBkNGQ0Y1wiO1xuICBsZXQgYXBpVXJsID0gYGh0dHBzOi8vYXBpLm9wZW53ZWF0aGVybWFwLm9yZy9kYXRhLzIuNS93ZWF0aGVyP3E9JHtjaXR5fSZhcHBpZD0ke2FwaUtleX0mdW5pdHM9bWV0cmljYDtcbiAgYXhpb3MuZ2V0KGFwaVVybCkudGhlbihkaXNwbGF5V2VhdGhlckNvbmRpdGlvbik7XG59XG5cbmZ1bmN0aW9uIGhhbmRsZVN1Ym1pdChldmVudCkge1xuICBldmVudC5wcmV2ZW50RGVmYXVsdCgpO1xuICBsZXQgY2l0eSA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIjY2l0eS1pbnB1dFwiKS52YWx1ZTtcbiAgc2VhcmNoQ2l0eShjaXR5KTtcbn1cblxuZnVuY3Rpb24gc2VhcmNoTG9jYXRpb24ocG9zaXRpb24pIHtcbiAgbGV0IGFwaUtleSA9IFwiNWY0NzJiN2FjYmEzMzNjZDhhMDM1ZWE4NWEwZDRkNGNcIjtcbiAgbGV0IGFwaVVybCA9IGBodHRwczovL2FwaS5vcGVud2VhdGhlcm1hcC5vcmcvZGF0YS8yLjUvd2VhdGhlcj9sYXQ9JHtcbiAgICBwb3NpdGlvbi5jb29yZHMubGF0aXR1ZGVcbiAgfSZsb249JHtwb3NpdGlvbi5jb29yZHMubG9uZ2l0dWRlfSZhcHBpZD0ke2FwaUtleX0mdW5pdHM9bWV0cmljYDtcblxuICBheGlvcy5nZXQoYXBpVXJsKS50aGVuKGRpc3BsYXlXZWF0aGVyQ29uZGl0aW9uKTtcbn1cblxuZnVuY3Rpb24gZ2V0Q3VycmVudExvY2F0aW9uKGV2ZW50KSB7XG4gIGV2ZW50LnByZXZlbnREZWZhdWx0KCk7XG4gIG5hdmlnYXRvci5nZW9sb2NhdGlvbi5nZXRDdXJyZW50UG9zaXRpb24oc2VhcmNoTG9jYXRpb24pO1xufVxuXG5mdW5jdGlvbiBjb252ZXJ0VG9GYWhyZW5oZWl0KGV2ZW50KSB7XG4gIGV2ZW50LnByZXZlbnREZWZhdWx0KCk7XG4gIGxldCB0ZW1wZXJhdHVyZUVsZW1lbnQgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yKFwiI3RlbXBlcmF0dXJlXCIpO1xuICB0ZW1wZXJhdHVyZUVsZW1lbnQuaW5uZXJIVE1MID0gNjY7XG59XG5cbmZ1bmN0aW9uIGNvbnZlcnRUb0NlbHNpdXMoZXZlbnQpIHtcbiAgZXZlbnQucHJldmVudERlZmF1bHQoKTtcbiAgbGV0IHRlbXBlcmF0dXJlRWxlbWVudCA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIjdGVtcGVyYXR1cmVcIik7XG4gIHRlbXBlcmF0dXJlRWxlbWVudC5pbm5lckhUTUwgPSAxOTtcbn1cblxubGV0IGRhdGVFbGVtZW50ID0gZG9jdW1lbnQucXVlcnlTZWxlY3RvcihcIiNkYXRlXCIpO1xubGV0IGN1cnJlbnRUaW1lID0gbmV3IERhdGUoKTtcbmRhdGVFbGVtZW50LmlubmVySFRNTCA9IGZvcm1hdERhdGUoY3VycmVudFRpbWUpO1xuXG5sZXQgc2VhcmNoRm9ybSA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIjc2VhcmNoLWZvcm1cIik7XG5zZWFyY2hGb3JtLmFkZEV2ZW50TGlzdGVuZXIoXCJzdWJtaXRcIiwgaGFuZGxlU3VibWl0KTtcblxubGV0IGN1cnJlbnRMb2NhdGlvbkJ1dHRvbiA9IGRvY3VtZW50LnF1ZXJ5U2VsZWN0b3IoXCIjY3VycmVudC1sb2NhdGlvbi1idXR0b25cIik7XG5jdXJyZW50TG9jYXRpb25CdXR0b24uYWRkRXZlbnRMaXN0ZW5lcihcImNsaWNrXCIsIGdldEN1cnJlbnRMb2NhdGlvbik7XG5cbnNlYXJjaENpdHkoXCJOZXcgWW9ya1wiKTtcbiJdfQ==',
+                sourceEqualsCompiled: false
+              }
+            },
+            "/index.html:": {
+              query: "",
+              module: {
+                path: "/index.html",
+                code:
+                  '\u003c!DOCTYPE html>\n\u003chtml lang="en">\n  \u003chead>\n    \u003cmeta charset="UTF-8" />\n    \u003cmeta name="viewport" content="width=device-width, initial-scale=1.0" />\n    \u003cmeta http-equiv="X-UA-Compatible" content="ie=edge" />\n    \u003clink\n      rel="stylesheet"\n      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"\n      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"\n      crossorigin="anonymous"\n    />\n    \u003cscript src="https://unpkg.com/axios/dist/axios.min.js">\u003c/script>\n    \u003clink rel="stylesheet" href="src/styles.css" />\n    \u003ctitle>Weather App\u003c/title>\n  \u003c/head>\n\n  \u003cbody>\n    \u003cdiv class="container">\n      \u003cdiv class="weather-app">\n        \u003cform class="search-form" id="search-form">\n          \u003cdiv class="row">\n            \u003cdiv class="col-6">\n              \u003cinput\n                type="search"\n                placeholder="Type a city.."\n                autofocus="on"\n                autocomplete="off"\n                id="city-input"\n                class="form-control shadow-sm"\n              />\n            \u003c/div>\n            \u003cdiv class="col-3">\n              \u003cinput\n                type="submit"\n                value="Search"\n                class="form-control btn btn-primary shadow-sm w-100"\n              />\n            \u003c/div>\n            \u003cdiv class="col-3">\n              \u003cbutton\n                class="btn btn-success w-100"\n                id="current-location-button"\n              >\n                Current\n              \u003c/button>\n            \u003c/div>\n          \u003c/div>\n        \u003c/form>\n        \u003ch1 id="city">\u003c/h1>\n        \u003cul>\n          \u003cli id="date">\u003c/li>\n          \u003cli id="description">\u003c/li>\n        \u003c/ul>\n        \u003cdiv class="row">\n          \u003cdiv class="col-6">\n            \u003cdiv class="clearfix">\n              \u003cdiv class="float-left">\n                \u003cspan class="temperature" id="temperature">\u003c/span\n                >\u003cspan class="units">°C\u003c/span>\n              \u003c/div>\n            \u003c/div>\n          \u003c/div>\n          \u003cdiv class="col-6">\n            \u003cul>\n              \u003cli>Humidity: \u003cspan id="humidity">\u003c/span>%\u003c/li>\n              \u003cli>Wind: \u003cspan id="wind">\u003c/span> km/h\u003c/li>\n            \u003c/ul>\n          \u003c/div>\n        \u003c/div>\n      \u003c/div>\n    \u003c/div>\n    \u003cscript src="src/index.js">\u003c/script>\n  \u003c/body>\n\u003c/html>\n'
+              },
+              isEntry: true,
+              isTestFile: false,
+              sourceEqualsCompiled: false,
+              childModules: [],
+              dependencies: ["/src/styles.css:", "/src/index.js:"],
+              initiators: [],
+              transpilationDependencies: [],
+              transpilationInitiators: [],
+              asyncDependencies: [],
+              warnings: [],
+              hasMissingDependencies: false,
+              source: {
+                fileName: "/index.html",
+                compiledCode:
+                  "\nfunction loadResources() {\n\trequire(\"./src/styles.css\");\n\n\trequire(\"./src/index.js\");\n\n}\nif (document.readyState !== 'complete') {\n  window.addEventListener('load', function() { loadResources() });\n} else {\n  loadResources();\n}\n\n",
+                sourceEqualsCompiled: false
+              }
+            },
+            "/node_modules/@babel/runtime/helpers/interopRequireDefault.js:": {
+              query: "",
+              module: {
+                path:
+                  "/node_modules/@babel/runtime/helpers/interopRequireDefault.js",
+                code:
+                  'function _interopRequireDefault(obj) {\n  return obj && obj.__esModule ? obj : {\n    "default": obj\n  };\n}\nmodule.exports = _interopRequireDefault, module.exports.__esModule = true, module.exports["default"] = module.exports;',
+                downloaded: true
+              },
+              isEntry: false,
+              isTestFile: false,
+              sourceEqualsCompiled: true,
+              childModules: [],
+              dependencies: [],
+              initiators: ["/src/index.js:"],
+              transpilationDependencies: [],
+              transpilationInitiators: [],
+              asyncDependencies: [],
+              warnings: [],
+              hasMissingDependencies: false,
+              source: null
+            },
+            "/node_modules/@babel/runtime/helpers/interopRequireWildcard.js:": {
+              query: "",
+              module: {
+                path:
+                  "/node_modules/@babel/runtime/helpers/interopRequireWildcard.js",
+                code:
+                  'var _typeof = require("./typeof.js")["default"];\nfunction _getRequireWildcardCache(nodeInterop) {\n  if (typeof WeakMap !== "function") return null;\n  var cacheBabelInterop = new WeakMap();\n  var cacheNodeInterop = new WeakMap();\n  return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) {\n    return nodeInterop ? cacheNodeInterop : cacheBabelInterop;\n  })(nodeInterop);\n}\nfunction _interopRequireWildcard(obj, nodeInterop) {\n  if (!nodeInterop && obj && obj.__esModule) {\n    return obj;\n  }\n  if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") {\n    return {\n      "default": obj\n    };\n  }\n  var cache = _getRequireWildcardCache(nodeInterop);\n  if (cache && cache.has(obj)) {\n    return cache.get(obj);\n  }\n  var newObj = {};\n  var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;\n  for (var key in obj) {\n    if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) {\n      var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;\n      if (desc && (desc.get || desc.set)) {\n        Object.defineProperty(newObj, key, desc);\n      } else {\n        newObj[key] = obj[key];\n      }\n    }\n  }\n  newObj["default"] = obj;\n  if (cache) {\n    cache.set(obj, newObj);\n  }\n  return newObj;\n}\nmodule.exports = _interopRequireWildcard, module.exports.__esModule = true, module.exports["default"] = module.exports;',
+                downloaded: true
+              },
+              isEntry: false,
+              isTestFile: false,
+              sourceEqualsCompiled: true,
+              childModules: [],
+              dependencies: [
+                "/node_modules/@babel/runtime/package.json:",
+                "/node_modules/@babel/runtime/helpers/typeof.js:"
+              ],
+              initiators: ["/src/index.js:"],
+              transpilationDependencies: [],
+              transpilationInitiators: [],
+              asyncDependencies: [],
+              warnings: [],
+              hasMissingDependencies: false,
+              source: null
+            },
+            "/node_modules/@babel/runtime/helpers/typeof.js:": {
+              query: "",
+              module: {
+                path: "/node_modules/@babel/runtime/helpers/typeof.js",
+                code:
+                  'function _typeof(obj) {\n  "@babel/helpers - typeof";\n\n  return (module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {\n    return typeof obj;\n  } : function (obj) {\n    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;\n  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(obj);\n}\nmodule.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;',
+                downloaded: true
+              },
+              isEntry: false,
+              isTestFile: false,
+              sourceEqualsCompiled: true,
+              childModules: [],
+              dependencies: [],
+              initiators: [
+                "/node_modules/@babel/runtime/helpers/interopRequireWildcard.js:"
+              ],
+              transpilationDependencies: [],
+              transpilationInitiators: [],
+              asyncDependencies: [],
+              warnings: [],
+              hasMissingDependencies: false,
+              source: null
+            }
+          },
+          cachedPaths: {
+            "/": {
+              "./src/styles.css": "/src/styles.css",
+              "./src/index.js": "/src/index.js"
+            }
+          },
+          version: "https://codesandbox.io/static/js/sandbox.b0ffaaa1e.js",
+          timestamp: 1665749157275,
+          configurations: {
+            package: {
+              path: "/package.json",
+              code:
+                '{\n  "name": "api-homework-solution",\n  "version": "1.0.0",\n  "description": "",\n  "main": "index.html",\n  "scripts": {\n    "start": "parcel index.html --open",\n    "build": "parcel build index.html"\n  },\n  "dependencies": {},\n  "devDependencies": {\n    "@babel/core": "7.2.0",\n    "parcel-bundler": "^1.6.1"\n  },\n  "keywords": []\n}',
+              generated: false,
+              parsed: {
+                name: "api-homework-solution",
+                version: "1.0.0",
+                description: "",
+                main: "index.html",
+                scripts: {
+                  start: "parcel index.html --open",
+                  build: "parcel build index.html"
+                },
+                dependencies: {},
+                devDependencies: {
+                  "@babel/core": "7.2.0",
+                  "parcel-bundler": "^1.6.1"
+                },
+                keywords: []
+              }
+            },
+            sandbox: {
+              path: "/sandbox.config.json",
+              code:
+                '{\n  "infiniteLoopProtection": true,\n  "hardReloadOnChange": false,\n  "view": "browser"\n}',
+              generated: true,
+              parsed: {
+                infiniteLoopProtection: true,
+                hardReloadOnChange: false,
+                view: "browser"
+              }
+            },
+            now: {
+              path: "/vercel.json",
+              code: "{}",
+              generated: true,
+              parsed: {}
+            },
+            babel: {
+              path: "/.babelrc",
+              code:
+                '{\n  "presets": [\n    "env"\n  ],\n  "plugins": [\n    "transform-runtime"\n  ],\n  "parserOpts": {\n    "plugins": [\n      "dynamicImport"\n    ]\n  }\n}',
+              generated: true,
+              parsed: {
+                presets: ["env"],
+                plugins: ["transform-runtime"],
+                parserOpts: { plugins: ["dynamicImport"] }
+              }
+            },
+            typescript: {
+              path: "/tsconfig.json",
+              code:
+                '{\n  "compilerOptions": {\n    "module": "commonjs",\n    "jsx": "preserve",\n    "esModuleInterop": true,\n    "sourceMap": true,\n    "allowJs": true,\n    "lib": [\n      "es6",\n      "dom"\n    ],\n    "rootDir": "src",\n    "moduleResolution": "node"\n  }\n}',
+              generated: true,
+              parsed: {
+                compilerOptions: {
+                  module: "commonjs",
+                  jsx: "preserve",
+                  esModuleInterop: true,
+                  sourceMap: true,
+                  allowJs: true,
+                  lib: ["es6", "dom"],
+                  rootDir: "src",
+                  moduleResolution: "node"
+                }
+              }
+            }
+          },
+          entry: "/index.html",
+          meta: {},
+          dependenciesQuery:
+            "%40babel%2Fruntime%407.19.4+node-libs-browser%402.2.1"
+        },
+        latestSha:
+          "2988CF39F7C89BBB1720B6857F2761C9A33379FC0CCD6FCB177F1CD515680821",
+        version: "https://codesandbox.io/static/js/sandbox.b0ffaaa1e.js"
+      };
+    </script>
+    <script>
+      (function () {
+        var js =
+          "window['__CF$cv$params']={r:'75ad31985f7a7c1e',m:'L0SmQBkDFBrBhdv2m1__K3M1jgcwVmF47XcqMLH1DSo-1665885551-0-AWca2Ci6e+GtfnQqxgVtr4y1GP4CNiA6V77cv5yvgOmeg90k4g8fvsfMZ5RbVh32ugGZxU11RVROacybL6lBj3h5IJwXYjY5FaiPEtcdqkua05Y6QeueEolJ38KXEsWDcA==',s:[0x1c998a64a4,0xa50e8c3bd6],u:'/cdn-cgi/challenge-platform/h/g'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/g/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";
+        var _0xh = document.createElement("iframe");
+        _0xh.height = 1;
+        _0xh.width = 1;
+        _0xh.style.position = "absolute";
+        _0xh.style.top = 0;
+        _0xh.style.left = 0;
+        _0xh.style.border = "none";
+        _0xh.style.visibility = "hidden";
+        document.body.appendChild(_0xh);
+        function handler() {
+          var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;
+          if (_0xi) {
+            var _0xj = _0xi.createElement("script");
+            _0xj.nonce = "";
+            _0xj.innerHTML = js;
+            _0xi.getElementsByTagName("head")[0].appendChild(_0xj);
+          }
+        }
+        if (document.readyState !== "loading") {
+          handler();
+        } else if (window.addEventListener) {
+          document.addEventListener("DOMContentLoaded", handler);
+        } else {
+          var prev = document.onreadystatechange || function () {};
+          document.onreadystatechange = function (e) {
+            prev(e);
+            if (document.readyState !== "loading") {
+              document.onreadystatechange = prev;
+              handler();
+            }
+          };
+        }
+      })();
+    </script>
+    <script
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js/v652eace1692a40cfa3763df669d7439c1639079717194"
+      integrity="sha512-Gi7xpJR8tSkrpF7aordPZQlW2DLtzUlZcumS8dMQjwDHEnw9I7ZLyiOj/6tZStRBGtGgN6ceN6cMH8z7etPGlw=="
+      data-cf-beacon='{"rayId":"75ad31985f7a7c1e","token":"7449176f14aa420c959831edd48bd5b7","version":"2022.8.1","si":100}'
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
